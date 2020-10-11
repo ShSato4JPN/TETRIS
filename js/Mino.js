@@ -32,6 +32,14 @@ class Mino {
     getMino() {
         return this._minoData[this._minoState];
     }
+    // ミノの幅を取得
+    getMinoWidth() {
+        return this._minoData[0][0].length;
+    }
+    // ミノの高さを取得
+    getMinoHeight() {
+        return this._minoData.length;
+    }
 }
 
 /** Class MinoJ
