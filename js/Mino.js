@@ -34,11 +34,11 @@ class Mino {
     }
     // ミノの幅を取得
     getMinoWidth() {
-        return this._minoData[0][0].length;
+        return this._minoData[0][0][0].length;
     }
     // ミノの高さを取得
     getMinoHeight() {
-        return this._minoData.length;
+        return this._minoData[0][0].length;
     }
 }
 
@@ -51,32 +51,27 @@ class MinoJ extends Mino {
     }
     // Override
     createMinoData() {
-        let subArray0 = [
-            [1, 0, 0],
-            [1, 1, 1],
-            [0, 0, 0]
-        ];
-        let subArray1 = [
-            [0, 1, 1],
-            [0, 1, 0],
-            [0, 1, 0]
-        ];
-        let subArray2 = [
-            [0, 0, 0],
-            [1, 1, 1],
-            [0, 0, 1]
-        ];
-        let subArray3 = [
-            [0, 1, 0],
-            [0, 1, 0],
-            [1, 1, 0]
-        ];
-
         this._minoData = [
-            [ subArray0 ],
-            [ subArray1 ],
-            [ subArray2 ],
-            [ subArray3 ],
+            [
+                [1, 0, 0],
+                [1, 1, 1],
+                [0, 0, 0]
+             ],
+            [
+                [0, 1, 1],
+                [0, 1, 0],
+                [0, 1, 0]
+             ],
+            [
+                [0, 0, 0],
+                [1, 1, 1],
+                [0, 0, 1]
+             ],
+            [
+                [0, 1, 0],
+                [0, 1, 0],
+                [1, 1, 0]
+             ]
         ];
     }
 }

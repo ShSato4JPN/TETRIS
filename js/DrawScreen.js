@@ -22,9 +22,13 @@ class DrawScreen {
         console.log( mino.getMinoWidth() );
         console.log( mino.getMinoHeight() );
 
-        for ( var y = 0; mino.getMinoHeight(); y++ ) {
-            for ( var x = 0; mino.getMinoWidth(); x++ ) {
-                this._table.rows[ posY + y ].cells[ posX + x ].style.backgroundColor = minoColor;
+        for ( var y = 0; y < mino.getMinoHeight(); y++ ) {
+            for ( var x = 0; x < mino.getMinoWidth(); x++ ) {
+                console.log(minoData[0][y][x]);
+                if ( minoData[y][x] == 1 ){
+                    this._table.rows[ posY + y ].cells[ posX + x ].style.backgroundColor = minoColor;
+                }
+
             }
         }
     }
