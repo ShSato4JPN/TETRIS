@@ -24,7 +24,7 @@ class DrawScreen {
 
         for ( var y = 0; y < mino.getMinoHeight(); y++ ) {
             for ( var x = 0; x < mino.getMinoWidth(); x++ ) {
-                console.log(minoData[0][y][x]);
+                console.log(minoData[y][x]);
                 if ( minoData[y][x] == 1 ){
                     this._table.rows[ posY + y ].cells[ posX + x ].style.backgroundColor = minoColor;
                 }

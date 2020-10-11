@@ -34,11 +34,11 @@ class Mino {
     }
     // ミノの幅を取得
     getMinoWidth() {
-        return this._minoData[0][0][0].length;
+        return this._minoData[0][0].length;
     }
     // ミノの高さを取得
     getMinoHeight() {
-        return this._minoData[0][0].length;
+        return this._minoData[0].length;
     }
 }
 
