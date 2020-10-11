@@ -4,9 +4,9 @@
 class Mino {
     constructor( color ) {
         // メンバ定義
-        init( color );
+        //init( color );
         // ミノ情報を作成
-        createMinoData();
+        //createMinoData();
     }
     // メンバを定義
     init( color ) {
@@ -41,6 +41,7 @@ class Mino {
 class MinoJ extends Mino {
     constructor() {
         super( "#3399FF" );
+        supre.init("#3399FF");
     }
     // Override
     createMinoData() {
