@@ -4,34 +4,33 @@
 class Mino {
     constructor( color ) {
         // メンバ定義
-        //init( color );
+        this.init( color );
         // ミノ情報を作成
-        //createMinoData();
+        this.createMinoData();
     }
     // メンバを定義
     init( color ) {
-        // 0 ~ 3 毎に45度回転する
-        this.minoState = 0;
-        this.minoColor = color; // ミノの色
-        this.minoData  = undefined; // ミノの構造(2次元配列)
+        this._minoState = 0;                 // 0 ~ 3 毎に45度回転する
+        this._minoColor = color;          // ミノの色
+        this._minoData  = undefined;  // ミノの構造(2次元配列)
     }
     // サブクラスでOrverrideする
     createMinoData() {}
-    // ミノのステータスを取得
-    get minoState() {
-        return this.minoState;
-    }
     // ミノのステータスを設定
     set minoState( state ) {
-        this.minoState = state;
+        this._minoState = state;
+    }
+    // ミノのステータスを取得
+    get minoState() {
+        return this._minoState;
     }
     // ミノの色を取得
     getMinoColor() {
-        return this.minoData[this.minoState][0];
+        return this._minoColor;
     }
     // ミノの現在の構成を取得
     getMino() {
-        return this.minoData[this.minoState][1];
+        return this._minoData[this._minoState];
     }
 }
 
@@ -41,7 +40,6 @@ class Mino {
 class MinoJ extends Mino {
     constructor() {
         super( "#3399FF" );
-        supre.init("#3399FF");
     }
     // Override
     createMinoData() {
@@ -66,11 +64,11 @@ class MinoJ extends Mino {
             [1, 1, 0]
         ];
 
-        this.this.minoData = [
-            [this.color, subArray0],
-            [this.color, subArray1],
-            [this.color, subArray2],
-            [this.color, subArray3],
+        this._minoData = [
+            [ subArray0 ],
+            [ subArray1 ],
+            [ subArray2 ],
+            [ subArray3 ],
         ];
     }
 }
