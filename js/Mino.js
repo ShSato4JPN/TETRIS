@@ -41,7 +41,6 @@ class Mino {
         return this._minoData[0].length;
     }
 }
-
 /** Class MinoJ
   *   J型のミノ
  **/
@@ -71,7 +70,7 @@ class MinoJ extends Mino {
                 [0, 1, 0],
                 [0, 1, 0],
                 [1, 1, 0]
-             ]
+            ]
         ];
     }
 }
