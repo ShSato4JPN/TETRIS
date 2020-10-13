@@ -37,7 +37,7 @@ class DrawScreen {
     *    posY : 描画開始位置X
     *    Mino : 描画するミノ
     */
-    drawMino_v2( posX, posY, mino ) {
+    drawMino( posX, posY, mino ) {
         // 現在のミノの構成を取得
         var minoData = mino.getMino();
         var minoColor = mino.getMinoColor();
@@ -59,7 +59,7 @@ class DrawScreen {
     * 引数のミノを画面上からクリアする
     *    Mino : クリアするミノ
     */
-    clearMino( posX, posY, mino ) {
+    drawMino_v2( posX, posY, mino ) {
         var minoData = mino.getMino();
 
         for ( var y = 0; y < mino.getMinoHeight(); y++ ) {
