@@ -3,23 +3,17 @@
  **/
 let targetMino;
 let drawScreen = new DrawScreen( document.getElementById(  "GAME_FIELD" ) );
+let minoContoroller = new MinoController();
 
  function sampleClass() {
      targetMino  = new MinoJ();
-     targetMino.minoState = 0;
-     drawScreen.drawMino( 0, 0, targetMino );
+     minoContoroller.setActiveMino( targetMino );
  }
 
-
 function smapleRightSpin() {
-     // 背景色クリア
-     //drawScreen.clearMino( 0, 0, targetMino );
-    // ミノの45度回転
-    if ( targetMino.minoState == 3 ) {
-        targetMino.minoState = 0;
-    } else {
-        targetMino.minoState++;
-    }
-     // ミノ描画
-     drawScreen.drawMino_v2( 0, 0, targetMino );
+    minoContoroller.spinRight();
+}
+
+function smapleLeftSpin() {
+    minoContoroller.spinLeft();
 }

@@ -18,6 +18,7 @@ class Mino {
         this._minoData  = undefined;  // ミノの構造(2次元配列)
         this._minoMaxLeft = 0;        // ミノの最左端
         this._minoMaxRight = 0;       // ミノの最右端
+        this._minoMaxTom = 0;      // ミノの最上
         this._minoMaxBottom = 0;      // ミノの最下
     }
 
@@ -29,16 +30,22 @@ class Mino {
         let minoData = this._minoData[this._minoState];
         let maxL = this.getMinoWidth();
         let maxR = 0;
+        let maxT = this.getMinoHeight();
         let maxB = 0;
         for ( var y = 0; y < this.getMinoHeight(); y++ ) {
             for ( var x = 0; x < this.getMinoWidth(); x++ ) {
                 if ( minoData[y][x] == 1 ) {
-                    if ( x < maxL ) { this._minoMaxLeft = x; }            // x の最小値を設定
-                    if ( maxR < x ) { this._minoMaxRight = x + 1; }  // x の最大値を設定
-                    this._minoMaxBottom = y + 1;                        // y の最大値を設定
+                    if ( x < maxL ) { maxL = x; }
+                    if ( maxR < x ) { maxR = x; }
+                    if ( y < maxT ) { maxT = y; }
+                    maxB = y;
                 }
             }
         }
+        this._minoMaxLeft = maxL + 1;        // 左の最大位置
+        this._minoMaxRight = maxR + 1;     // 右の最大位置
+         this._minoMaxTop = maxT + 1;       // 上の最大位置
+        this._minoMaxBottom = maxB + 1; // 下の最大位置
     }
 
     // ミノのステータスを設定
