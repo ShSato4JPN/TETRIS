@@ -3,11 +3,14 @@
  **/
 let targetMino;
 let drawScreen = new DrawScreen( document.getElementById(  "GAME_FIELD" ) );
-let minoContoroller = new MinoController();
+let drawPosMgr = new DrawPositionManager( 10, 22 );
+let minoContoroller = new MinoController( drawPosMgr );
 
  function sampleClass() {
-     targetMino  = new MinoJ();
+     targetMino  = new TestMino();
      minoContoroller.setActiveMino( targetMino );
+     minoContoroller.setStartDrawPos( 0, 0 );
+     minoContoroller.testCode_drawActiveMino();
  }
 
 function smapleRightSpin() {
@@ -16,4 +19,12 @@ function smapleRightSpin() {
 
 function smapleLeftSpin() {
     minoContoroller.spinLeft();
+}
+
+function moveLeft() {
+
+}
+
+function moveRight() {
+    minoContoroller.moveRight();
 }

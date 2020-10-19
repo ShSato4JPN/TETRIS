@@ -51,7 +51,7 @@ class Mino {
     // ミノのステータスを設定
     set minoState( state ) {
         this._minoState = state;
-        // ミノの端の値を更新する
+        // ミノの情報を更新する
         this._setMinoMaxPos();
     }
     // ミノのステータスを取得
@@ -79,6 +79,33 @@ class Mino {
         return this._minoData[0].length;
     }
 }
+
+/** Class MinoJ
+  *   J型のミノ
+ **/
+class TestMino extends Mino {
+    constructor() {
+        super( "tomato" );
+    }
+    // Override
+    _OVR_createMinoData() {
+        this._minoData = [
+            [
+                [1]
+             ],
+            [
+                [1]
+             ],
+            [
+                [1]
+             ],
+            [
+                [1]
+            ]
+        ];
+    }
+}
+
 /** Class MinoJ
   *   J型のミノ
  **/

@@ -2,23 +2,38 @@
   *   ミノを操作するクラス
  **/
 class MinoController {
-    constructor() {
-        this._init()
+    constructor( dpm ) {
+        this._init( dpm )
     }
 
     // メンバを定義
-    _init( mino ) {
+    _init( dpm ) {
         this._mino = undefined;
+        this._dpm = dpm;
     }
 
-    // 設定されているミノを初期化する
-    clearMino() {
-        this._mino = undefined;
+    // 初期位置を設定
+    setStartDrawPos( posX, posY ) {
+        this._dpm.drawPosX = posX;
+        this._dpm.drawPosY = posY;
     }
 
     // 操作するミノを設定する
     setActiveMino( mino ) {
         this._mino = mino;
+    }
+
+    moveRight() {
+        this._dpm.addPosX();
+        this.testCode_drawActiveMino();
+    }
+
+    moveLeft() {
+
+    }
+
+    moveDown() {
+
     }
 
     spinRight() {
@@ -41,5 +56,10 @@ class MinoController {
         }
 
         drawScreen.drawMino( 0, 0, this._mino );
+    }
+
+    // テスト用コード
+    testCode_drawActiveMino() {
+         drawScreen.drawMino( this._dpm.drawPosX, this._dpm.drawPosY,  this._mino );
     }
 }
