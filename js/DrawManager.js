@@ -1,14 +1,15 @@
 /** Class Mino
   *   描画開始位置を管理するクラス
  **/
- class DrawPositionManager {
-     constructor( width, height ) {
-         this._init( width, height );
+ class DrawManager {
+     constructor( width, height, ds ) {
+         this._init( width, height, ds );
      }
 
-     _init( width, height ) {
+     _init( width, height, ds ) {
          this._STAGE_WIDTH = width;    // ゲームステージの幅
          this._STAGE_HEIGHT = height;  //ゲームステージの高さ
+         this._DrawScreen = ds;
 
          this._drawPosX = undefined; // 描画開始位置X
          this._drawPosY = undefined; // 描画開始位置Y
@@ -35,17 +36,17 @@
      }
 
      // 表示開始位置Xを右に1移動する
-     addPosX() {
-         if ( this._drawPosX + 1 < this._STAGE_WIDTH ) {
+     addPosX( len ) {
+         // ミノを右に1移動
+         if (  (this._drawPosX + len ) + 1 < this._STAGE_WIDTH ) {
              this._drawPosX++;
+         }  else {
+
          }
      }
 
      // 表示開始位置Xを左に1移動する
      subPosX() {
-         if (  0 < this._drawPosX - 1 ) {
-             this._drawPosX--;
-         }
      }
 
  }

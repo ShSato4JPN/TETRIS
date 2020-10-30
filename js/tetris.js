@@ -3,13 +3,14 @@
  **/
 let targetMino;
 let drawScreen = new DrawScreen( document.getElementById(  "GAME_FIELD" ) );
-let drawPosMgr = new DrawPositionManager( 10, 22 );
-let minoContoroller = new MinoController( drawPosMgr );
+let drawManager = new DrawManager( 10, 22, drawScreen );
+let minoContoroller = new MinoController( drawManager );
+
 
  function sampleClass() {
      targetMino  = new TestMino();
      minoContoroller.setActiveMino( targetMino );
-     minoContoroller.setStartDrawPos( 0, 0 );
+     minoContoroller.setStartPos( 0, 0 );
      minoContoroller.testCode_drawActiveMino();
  }
 

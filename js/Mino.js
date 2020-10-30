@@ -42,10 +42,10 @@ class Mino {
                 }
             }
         }
-        this._minoMaxLeft = maxL + 1;        // 左の最大位置
-        this._minoMaxRight = maxR + 1;     // 右の最大位置
-         this._minoMaxTop = maxT + 1;       // 上の最大位置
-        this._minoMaxBottom = maxB + 1; // 下の最大位置
+        this._minoMaxLeft = maxL;       // 左の最大位置
+        this._minoMaxRight = maxR;    // 右の最大位置
+        this._minoMaxTop = maxT;       // 上の最大位置(いらない？)
+        this._minoMaxBottom = maxB; // 下の最大位置
     }
 
     // ミノのステータスを設定
@@ -78,6 +78,22 @@ class Mino {
     getMinoHeight() {
         return this._minoData[0].length;
     }
+
+    // ミノの右端を取得
+    getMinoMaxRight() {
+        return this._minoMaxRight;
+    }
+
+    // ミノの左端を取得
+    getMinoMaxLeft() {
+        return this._minoMaxLeft;
+    }
+
+    // ミノのボトムを取得
+    getMinoMaxBottom() {
+        return this._minoMaxBottom;
+    }
+
 }
 
 /** Class MinoJ
