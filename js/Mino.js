@@ -8,7 +8,7 @@ class Mino {
         // ミノ情報を作成
         this._OVR_createMinoData();
         // ミノの端（左、右、下）のデータを取得する
-        this._setMinoMaxPos();
+        this._setMinoInfo();
     }
 
     // メンバを定義
@@ -26,7 +26,7 @@ class Mino {
     _OVR_createMinoData() {}
 
     // ミノの左、右、下の最端値を取得する
-    _setMinoMaxPos() {
+    _setMinoInfo() {
         let minoData = this._minoData[this._minoState];
         let maxL = this.getMinoWidth();
         let maxR = 0;
@@ -52,7 +52,7 @@ class Mino {
     set minoState( state ) {
         this._minoState = state;
         // ミノの情報を更新する
-        this._setMinoMaxPos();
+        this._setMinoInfo();
     }
     // ミノのステータスを取得
     get minoState() {
@@ -99,32 +99,6 @@ class Mino {
 /** Class MinoJ
   *   J型のミノ
  **/
-class TestMino extends Mino {
-    constructor() {
-        super( "tomato" );
-    }
-    // Override
-    _OVR_createMinoData() {
-        this._minoData = [
-            [
-                [1]
-             ],
-            [
-                [1]
-             ],
-            [
-                [1]
-             ],
-            [
-                [1]
-            ]
-        ];
-    }
-}
-
-/** Class MinoJ
-  *   J型のミノ
- **/
 class MinoJ extends Mino {
     constructor() {
         super( "#3399FF" );
@@ -133,24 +107,28 @@ class MinoJ extends Mino {
     _OVR_createMinoData() {
         this._minoData = [
             [
-                [1, 0, 0],
-                [1, 1, 1],
-                [0, 0, 0]
+                [0, 0, 0, 0],
+                [0, 1, 0, 0],
+                [0, 1, 1, 1],
+                [0, 0, 0, 0]
              ],
             [
-                [0, 1, 1],
-                [0, 1, 0],
-                [0, 1, 0]
+                [0, 0, 0, 0],
+                [0, 1, 1, 0],
+                [0, 1, 0, 0],
+                [0, 1, 0, 0]
              ],
             [
-                [0, 0, 0],
-                [1, 1, 1],
-                [0, 0, 1]
+                [0, 0, 0, 0],
+                [0, 0, 0, 0],
+                [1, 1, 1, 0],
+                [0, 0, 1, 0]
              ],
             [
-                [0, 1, 0],
-                [0, 1, 0],
-                [1, 1, 0]
+                [0, 0, 0, 0],
+                [0, 1, 0, 0],
+                [0, 1, 0, 0],
+                [1, 1, 0, 0]
             ]
         ];
     }

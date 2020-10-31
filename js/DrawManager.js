@@ -2,20 +2,29 @@
   *   描画開始位置を管理するクラス
  **/
  class DrawManager {
-     constructor( width, height, ds ) {
-         this._init( width, height, ds );
+     constructor() {
+         this._init();
      }
 
-     _init( width, height, ds ) {
-         this._STAGE_WIDTH = width;    // ゲームステージの幅
-         this._STAGE_HEIGHT = height;  //ゲームステージの高さ
-         this._DrawScreen = ds;
-
-         this._drawPosX = undefined; // 描画開始位置X
-         this._drawPosY = undefined; // 描画開始位置Y
-         this._drawStartPosX = undefined; //ミノ」描画開始位置X
-         this._drawStartPosY = undefined; // ミノ」描画開始位置Y
+     _init() {
+         // 背景初期色
+         this._initColor = "lightgrey";
+         // ゲームステージの幅
+         this._STAGE_WIDTH = undefined;
+         // ゲームステージの幅
+         this._STAGE_HEIGHT = undefined;
+         // 描画開始位置X
+         this._drawPosX = undefined;
+         // 描画開始位置Y
+         this._drawPosY = undefined;
      }
+
+    // フィールドを設定する
+    setGameField( table ) {
+        this._table = table;
+        this._STAGE_HEIGHT = table.rows.length;
+        this._STAGE_WIDTH = table.rows[1].cells.length;
+    }
 
      // ミノの描画開始位置Xを設定
      set drawPosX( posX ) {
@@ -35,18 +44,103 @@
          return this._drawPosY;
      }
 
-     // 表示開始位置Xを右に1移動する
-     addPosX( len ) {
-         // ミノを右に1移動
-         if (  (this._drawPosX + len ) + 1 < this._STAGE_WIDTH ) {
-             this._drawPosX++;
-         }  else {
+     // 右に移動する
+     addPosX() {
+        this._drawPosX++;
+     }
 
+     // 左に移動する
+     subPosX() {
+        this._drawPosX--;
+     }
+
+     // ミノを描画する
+     drawMino( mino ) {
+         let minoData = mino.getMino();
+         let minoColor = mino.getMinoColor();
+
+         for ( let y = 0; y < mino.getMinoHeight(); y++ ) {
+             for ( let x = 0; x < mino.getMinoWidth(); x++ ) {
+                 if ( minoData[y][x] == 1 ){
+                     this._table.rows[ this._drawPosY + y ].cells[ this._drawPosX + x ].style.backgroundColor = minoColor;
+                 }
+             }
          }
      }
 
-     // 表示開始位置Xを左に1移動する
-     subPosX() {
+     // ミノが移動可能かチェックする
+     chkCanMove( mvPosX, mvPosY, mino ) {
+         let minoData = mino.getMino();
+         let minoColor = mino.getMinoColor();
+
+         for ( let y = 0; y < mino.getMinoHeight(); y++ ) {
+             for ( let x = 0; x < mino.getMinoWidth(); x++ ) {
+                 if ( minoData[y][x] == 1 ){
+                     // 移動後のミノが画面外の時はエラー
+                    if ( this._STAGE_HEIGHT <= ( mvPosY + y ) || ( mvPosY + y ) < 0 ||
+                           this._STAGE_WIDTH  <= ( mvPosX + x ) || ( mvPosX + x ) < 0 ) {
+                             return false;
+                    }
+                 }
+             }
+         }
+         // ミノの背景色を初期化する
+         this.clearMino( mino );
+         return true;
      }
+
+     // ミノが右回転可能かチェックする
+     chkCanRightSpit( mino ) {
+         let minoData = mino.getMino();
+
+         for ( let y = 0; y < mino.getMinoHeight(); y++ ) {
+             for ( let x = 0; x < mino.getMinoWidth(); x++ ) {
+                 if ( minoData[y][x] == 1 ){
+                     // 移動後のミノが画面外の時はエラー
+                    if ( this._STAGE_HEIGHT <= ( mvPosY + y ) || ( mvPosY + y ) < 0 ||
+                           this._STAGE_WIDTH  <= ( mvPosX + x ) || ( mvPosX + x ) < 0 ) {
+                             return false;
+                    }
+                 }
+             }
+         }
+         // ミノの背景色を初期化する
+         this.clearMino( mino );
+         return true;
+     }
+
+     // ミノが左回転可能かチェックする
+     chkCanLeftSpit( mino ) {
+         let minoData = mino.getMino();
+
+         for ( let y = 0; y < mino.getMinoHeight(); y++ ) {
+             for ( let x = 0; x < mino.getMinoWidth(); x++ ) {
+                 if ( minoData[y][x] == 1 ){
+                     // 移動後のミノが画面外の時はエラー
+                    if ( this._STAGE_HEIGHT <= ( mvPosY + y ) || ( mvPosY + y ) < 0 ||
+                           this._STAGE_WIDTH  <= ( mvPosX + x ) || ( mvPosX + x ) < 0 ) {
+                             return false;
+                    }
+                 }
+             }
+         }
+         // ミノの背景色を初期化する
+         this.clearMino( mino );
+         return true;
+     }
+
+    // ミノを削除
+    clearMino( mino ) {
+        let minoData = mino.getMino();
+
+        for ( let y = 0; y < mino.getMinoHeight(); y++ ) {
+            for ( let x = 0; x < mino.getMinoWidth(); x++ ) {
+                if ( minoData[y][x] == 1 ){
+                    // ミノの背景色を初期化する
+                    this._table.rows[ this._drawPosY + y ].cells[ this._drawPosX + x ].style.backgroundColor = this._initColor;
+                }
+            }
+        }
+    }
 
  }

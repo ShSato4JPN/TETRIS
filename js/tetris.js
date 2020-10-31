@@ -2,30 +2,29 @@
   *   ゲーム情報等を管理する
  **/
 let targetMino;
-let drawScreen = new DrawScreen( document.getElementById(  "GAME_FIELD" ) );
-let drawManager = new DrawManager( 10, 22, drawScreen );
-let minoContoroller = new MinoController( drawManager );
+let dm = new DrawManager();
+dm.setGameField( document.getElementById( "GAME_FIELD" ) );
+let mc = new MinoController( dm );
 
 
  function sampleClass() {
-     targetMino  = new TestMino();
-     minoContoroller.setActiveMino( targetMino );
-     minoContoroller.setStartPos( 0, 0 );
-     minoContoroller.testCode_drawActiveMino();
+     activeMino  = new MinoJ();
+     mc.setActiveMino( activeMino );
+     mc.setStartPos( 5, 0, activeMino );
  }
 
 function smapleRightSpin() {
-    minoContoroller.spinRight();
+    mc.spinRight();
 }
 
 function smapleLeftSpin() {
-    minoContoroller.spinLeft();
+    mc.spinLeft();
 }
 
 function moveLeft() {
-
+    mc.moveLeft();
 }
 
 function moveRight() {
-    minoContoroller.moveRight();
+    mc.moveRight();
 }
