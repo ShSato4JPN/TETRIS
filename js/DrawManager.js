@@ -73,10 +73,23 @@
          }
      }
 
+     // ミノを削除
+     clearMino( mino ) {
+         let minoData = mino.getMino();
+
+         for ( let y = 0; y < mino.getMinoHeight(); y++ ) {
+             for ( let x = 0; x < mino.getMinoWidth(); x++ ) {
+                 if ( minoData[y][x] == 1 ){
+                     // ミノの背景色を初期化する
+                     this._table.rows[ this._drawPosY + y ].cells[ this._drawPosX + x ].style.backgroundColor = this._initColor;
+                 }
+             }
+         }
+     }
+
      // ミノが移動可能かチェックする
      chkCanMove( mvPosX, mvPosY, mino ) {
          let minoData = mino.getMino();
-         let minoColor = mino.getMinoColor();
 
          for ( let y = 0; y < mino.getMinoHeight(); y++ ) {
              for ( let x = 0; x < mino.getMinoWidth(); x++ ) {
@@ -94,18 +107,22 @@
          return true;
      }
 
-    // ミノを削除
-    clearMino( mino ) {
-        let minoData = mino.getMino();
+     // ミノが移動可能かチェックする
+     chkCanSpin(  state, mino ) {
+         let minoData = mino.getMino();
 
-        for ( let y = 0; y < mino.getMinoHeight(); y++ ) {
-            for ( let x = 0; x < mino.getMinoWidth(); x++ ) {
-                if ( minoData[y][x] == 1 ){
-                    // ミノの背景色を初期化する
-                    this._table.rows[ this._drawPosY + y ].cells[ this._drawPosX + x ].style.backgroundColor = this._initColor;
-                }
-            }
-        }
-    }
+         for ( let y = 0; y < mino.getMinoHeight(); y++ ) {
+             for ( let x = 0; x < mino.getMinoWidth(); x++ ) {
+                 if ( minoData[y][x] == 1 ){
+                     // 移動後のミノが画面外の時はエラー
+                    if ( this._STAGE_HEIGHT <= ( mvPosY + y ) || ( mvPosY + y ) < 0 ||
+                           this._STAGE_WIDTH  <= ( mvPosX + x ) || ( mvPosX + x ) < 0 ) {
+                             return false;
+                    }
+                 }
+             }
+         }
+         return true;
+     }
 
  }

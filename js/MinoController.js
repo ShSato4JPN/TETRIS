@@ -35,7 +35,11 @@ class MinoController {
     // ミノを左に移動する
     moveLeft() {
         if ( this._dm.chkCanMove( this._dm.drawPosX - 1, this._dm.drawPosY, this._mino ) ) {
+            // ミノの背景色を初期化する
+            this._dm.clearMino( this._mino );
+            // 描画位置を右に移動する
             this._dm.subPosX();
+            // ミノを描画する
             this._dm.drawMino( this._mino );
         }
     }
@@ -43,30 +47,60 @@ class MinoController {
     // ミノを下に移動する
     moveDown() {
         if ( this._dm.chkCanMove( this._dm.drawPosX, this._dm.drawPosY + 1, this._mino ) ) {
+            // ミノの背景色を初期化する
+            this._dm.clearMino( this._mino );
+            // 描画位置を右に移動する
             this._dm.addPosY();
+            // ミノを描画する
             this._dm.drawMino( this._mino );
         }
     }
 
     spinRight() {
+        //  回転前
+        let befSpinState = this._mino.minoState;
+        //  回転後
+        let aftSpinsState = undefined;
+
         // ミノの右回転させる
-        if ( this._mino.minoState == 3 ) {
-            this._mino.minoState = 0;
+        if ( befSpinState == 3 ) {
+            aftSpinsState = 0;
         } else {
-            this._mino.minoState++;
+            aftSpinsState = befSpinState + 1;
         }
 
-        if ( this._dm.chkCanMove( this._dm.drawPosX , this._dm.drawPosY, this._mino ) ) {
+        this._mino.minoState = aftSpinsState;
+        if ( this._dm.chkCanMove( this._dm.drawPosX, this._dm.drawPosY, this._mino ) ) {
+            // ミノの背景色を初期化する
+            this._mino.minoState = befSpinState;
+            this._dm.clearMino( this._mino );
+            // ミノを描画する
+            this._mino.minoState = aftSpinsState;
             this._dm.drawMino( this._mino );
         }
     }
 
     spinLeft() {
+        //  回転前
+        let befSpinState = this._mino.minoState;
+        //  回転後
+        let aftSpinsState = undefined;
+
         // ミノの左回転させる
-        if ( this._mino.minoState == 0 ) {
-            this._mino.minoState = 3;
+        if ( befSpinState == 0 ) {
+            aftSpinsState = 3;
         } else {
-            this._mino.minoState--;
+            aftSpinsState = befSpinState - 1;
+        }
+
+        this._mino.minoState = aftSpinsState;
+        if ( this._dm.chkCanMove( this._dm.drawPosX, this._dm.drawPosY, this._mino ) ) {
+            // ミノの背景色を初期化する
+            this._mino.minoState = befSpinState;
+            this._dm.clearMino( this._mino );
+            // ミノを描画する
+            this._mino.minoState = aftSpinsState;
+            this._dm.drawMino( this._mino );
         }
     }
 }
