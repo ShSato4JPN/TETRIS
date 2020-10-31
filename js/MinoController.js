@@ -42,6 +42,10 @@ class MinoController {
 
     // ミノを下に移動する
     moveDown() {
+        if ( this._dm.chkCanMove( this._dm.drawPosX, this._dm.drawPosY + 1, this._mino ) ) {
+            this._dm.addPosY();
+            this._dm.drawMino( this._mino );
+        }
     }
 
     spinRight() {

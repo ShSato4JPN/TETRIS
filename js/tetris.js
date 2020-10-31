@@ -21,10 +21,17 @@ function smapleLeftSpin() {
     mc.spinLeft();
 }
 
-function moveLeft() {
-    mc.moveLeft();
-}
-
-function moveRight() {
-    mc.moveRight();
+document.onkeydown = function( e ) {
+    switch ( e.keyCode ) {
+        case 37:
+            mc.moveLeft();
+            break;
+        case 38:
+        case 39:
+            mc.moveRight();
+            break;
+        case 40:
+            mc.moveDown();
+            break;
+    }
 }
