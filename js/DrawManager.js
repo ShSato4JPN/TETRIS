@@ -13,6 +13,8 @@
          this._STAGE_WIDTH = undefined;
          // ゲームステージの幅
          this._STAGE_HEIGHT = undefined;
+         // ステージデータ
+         this._STAGE_DATA = [];
          // 描画開始位置X
          this._drawPosX = undefined;
          // 描画開始位置Y
@@ -24,6 +26,13 @@
         this._table = table;
         this._STAGE_HEIGHT = table.rows.length;
         this._STAGE_WIDTH = table.rows[1].cells.length;
+        // ステージデータを初期化する
+        for ( let  i=0; i < this._STAGE_HEIGHT; i++ ) {
+            this._STAGE_DATA[i] = []
+            for ( let j=0; j < this._STAGE_WIDTH; j++ ) {
+                this._STAGE_DATA[i][j] = 0;
+             }
+         }
     }
 
      // ミノの描画開始位置Xを設定
@@ -57,6 +66,19 @@
      // 下に移動する
      addPosY() {
         this._drawPosY++;
+     }
+
+     // ゲームデータを更新する
+     updGameData( mino ) {
+          let minoData = mino.getMino();
+
+         for ( let y = 0; y < mino.getMinoHeight(); y++ ) {
+             for ( let x = 0; x < mino.getMinoWidth(); x++ ) {
+                 if ( minoData[y][x] == 1 ){
+                    this._STAGE_DATA[ this._drawPosY + y ][ this._drawPosX + x ] = 1;
+                 }
+             }
+         }
      }
 
      // ミノを描画する
@@ -95,8 +117,9 @@
              for ( let x = 0; x < mino.getMinoWidth(); x++ ) {
                  if ( minoData[y][x] == 1 ){
                      // 移動後のミノが画面外の時はエラー
-                    if ( this._STAGE_HEIGHT <= ( mvPosY + y ) || ( mvPosY + y ) < 0 ||
-                           this._STAGE_WIDTH  <= ( mvPosX + x ) || ( mvPosX + x ) < 0 ) {
+                    if ( this._STAGE_HEIGHT <= ( mvPosY + y ) || ( mvPosY + y ) < 0  ||
+                           this._STAGE_WIDTH  <= ( mvPosX + x ) || ( mvPosX + x ) < 0 ||
+                           this._STAGE_DATA[ mvPosY + y ][ mvPosX + x ] == 1 ) {
                              return false;
                     }
                  }
@@ -104,24 +127,6 @@
          }
          // ミノの背景色を初期化する
          this.clearMino( mino );
-         return true;
-     }
-
-     // ミノが移動可能かチェックする
-     chkCanSpin(  state, mino ) {
-         let minoData = mino.getMino();
-
-         for ( let y = 0; y < mino.getMinoHeight(); y++ ) {
-             for ( let x = 0; x < mino.getMinoWidth(); x++ ) {
-                 if ( minoData[y][x] == 1 ){
-                     // 移動後のミノが画面外の時はエラー
-                    if ( this._STAGE_HEIGHT <= ( mvPosY + y ) || ( mvPosY + y ) < 0 ||
-                           this._STAGE_WIDTH  <= ( mvPosX + x ) || ( mvPosX + x ) < 0 ) {
-                             return false;
-                    }
-                 }
-             }
-         }
          return true;
      }
 

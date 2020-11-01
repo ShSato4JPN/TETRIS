@@ -2,14 +2,19 @@
   *   ミノを操作するクラス
  **/
 class MinoController {
-    constructor( dm ) {
-        this._init( dm );
+    constructor() {
+        this._init();
     }
 
     // メンバを定義
-    _init( dm ) {
-        this._dm = dm;
+    _init() {
+        this._dm = undefined;
         this._mino = undefined;
+    }
+
+    // DrawManagerを設定
+    setDrawManager( dm ) {
+        this._dm = dm;
     }
 
     // 操作するミノを設定する
@@ -27,7 +32,11 @@ class MinoController {
     // ミノを右に移動する
     moveRight() {
         if ( this._dm.chkCanMove( this._dm.drawPosX + 1, this._dm.drawPosY, this._mino ) ) {
+            // ミノの背景色を初期化する
+            this._dm.clearMino( this._mino );
+            // 描画位置を左に移動する
             this._dm.addPosX();
+            // ミノを描画する
             this._dm.drawMino( this._mino );
         }
     }
@@ -37,7 +46,7 @@ class MinoController {
         if ( this._dm.chkCanMove( this._dm.drawPosX - 1, this._dm.drawPosY, this._mino ) ) {
             // ミノの背景色を初期化する
             this._dm.clearMino( this._mino );
-            // 描画位置を右に移動する
+            // 描画位置を左に移動する
             this._dm.subPosX();
             // ミノを描画する
             this._dm.drawMino( this._mino );
@@ -53,6 +62,15 @@ class MinoController {
             this._dm.addPosY();
             // ミノを描画する
             this._dm.drawMino( this._mino );
+        } else {
+            // ミノを下に移動できなかった時は、DrawManagerのStageDataを更新する。
+            this._dm.updGameData( this._mino );
+
+            // テスト用コード
+            this._mino = undefined;
+            this._mino = new MinoI();
+            mc.setActiveMino( this._mino );
+            mc.setStartPos( 3, 0, this._mino );
         }
     }
 
@@ -60,23 +78,25 @@ class MinoController {
         //  回転前
         let befSpinState = this._mino.minoState;
         //  回転後
-        let aftSpinsState = undefined;
+        let aftSpinState = undefined;
 
         // ミノの右回転させる
         if ( befSpinState == 3 ) {
-            aftSpinsState = 0;
+            aftSpinState = 0;
         } else {
-            aftSpinsState = befSpinState + 1;
+            aftSpinState = befSpinState + 1;
         }
 
-        this._mino.minoState = aftSpinsState;
+        this._mino.minoState = aftSpinState;
         if ( this._dm.chkCanMove( this._dm.drawPosX, this._dm.drawPosY, this._mino ) ) {
             // ミノの背景色を初期化する
             this._mino.minoState = befSpinState;
             this._dm.clearMino( this._mino );
             // ミノを描画する
-            this._mino.minoState = aftSpinsState;
+            this._mino.minoState = aftSpinState;
             this._dm.drawMino( this._mino );
+        } else {
+            this._mino.minoState = befSpinState;
         }
     }
 
@@ -84,23 +104,27 @@ class MinoController {
         //  回転前
         let befSpinState = this._mino.minoState;
         //  回転後
-        let aftSpinsState = undefined;
+        let aftSpinState = undefined;
 
         // ミノの左回転させる
         if ( befSpinState == 0 ) {
-            aftSpinsState = 3;
+            aftSpinState = 3;
         } else {
-            aftSpinsState = befSpinState - 1;
+            // エラーの場合、回転前に戻す
+            aftSpinState = befSpinState - 1;
         }
 
-        this._mino.minoState = aftSpinsState;
+        this._mino.minoState = aftSpinState;
         if ( this._dm.chkCanMove( this._dm.drawPosX, this._dm.drawPosY, this._mino ) ) {
             // ミノの背景色を初期化する
             this._mino.minoState = befSpinState;
             this._dm.clearMino( this._mino );
             // ミノを描画する
-            this._mino.minoState = aftSpinsState;
+            this._mino.minoState = aftSpinState;
             this._dm.drawMino( this._mino );
+        } else {
+            // エラーの場合、回転前に戻す
+            this._mino.minoState = befSpinState;
         }
     }
 }
