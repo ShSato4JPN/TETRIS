@@ -9,6 +9,8 @@
      _init() {
          // 背景初期色
          this._initColor = "lightgrey";
+         // テーブル
+         this._table = undefined;
          // ゲームステージの幅
          this._STAGE_WIDTH = undefined;
          // ゲームステージの幅
@@ -68,6 +70,25 @@
         this._drawPosY++;
      }
 
+     // ０で初期化された配列を作成する
+     createEmptyArray() {
+         let retAry = [];
+         for ( let i=0; i < this._STAGE_WIDTH; i++ ) {
+             retAry[ i ] = 0;
+          }
+          return retAry;
+     }
+
+     // ０で初期化された配列を作成する
+     insertTableRecord() {
+         // テーブルに行を追加
+         let row = this._table.insertRow(0);
+         // insertしたレコードにセルを追加する。
+         for ( let i=0; i < this._STAGE_WIDTH; i++ ) {
+            row.insertCell( -1 );
+          }
+     }
+
      // ゲームデータを更新する
      updGameData( mino ) {
           let minoData = mino.getMino();
@@ -77,6 +98,38 @@
                  if ( minoData[y][x] == 1 ){
                     this._STAGE_DATA[ this._drawPosY + y ][ this._drawPosX + x ] = 1;
                  }
+             }
+         }
+     }
+
+     // 位置列揃っている行を削除する
+     delRows( mino ) {
+         // 削除フラグ
+         let delFlg;
+
+         for ( let y = 0; y < mino.getMinoHeight(); y++ ) {
+             delFlg = true;
+             for ( let x = 0; x < this._STAGE_WIDTH; x++ ) {
+                 // 画面領域外
+                if ( this._STAGE_HEIGHT <= ( this._drawPosY + y ) ) {
+                    return;
+                }
+                // 配列値が０の時
+                if ( delFlg && this._STAGE_DATA[ this._drawPosY + y ][ x ] == 0 ) {
+                    delFlg = false;
+                    continue;
+                }
+             }
+             // エラーがない行のみ削除
+             if ( delFlg ) {
+                 // STAGE_DATEから対象の行を削除
+                 this._STAGE_DATA.splice( this._drawPosY + y, 1 );
+                 // 配列の先頭に空行をINSERT
+                 this._STAGE_DATA.splice( 0, 0, this.createEmptyArray() );
+                 // テーブルから行を削除
+                 this._table.deleteRow( this._drawPosY + y );
+                 // tableの先頭にレコードを追加する
+                 this.insertTableRecord();
              }
          }
      }
@@ -95,7 +148,7 @@
          }
      }
 
-     // ミノを削除
+     // 移動前のミノを削除
      clearMino( mino ) {
          let minoData = mino.getMino();
 

@@ -65,6 +65,7 @@ class MinoController {
         } else {
             // ミノを下に移動できなかった時は、DrawManagerのStageDataを更新する。
             this._dm.updGameData( this._mino );
+            this._dm.delRows( this._mino );
 
             // テスト用コード
             this._mino = undefined;
