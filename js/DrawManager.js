@@ -69,7 +69,7 @@
      addPosY() {
         this._drawPosY++;
      }
-     
+
      // ０で初期化された配列を作成する
      createEmptyArray() {
          let retAry = [];

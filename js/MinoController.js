@@ -61,6 +61,8 @@ class MinoController {
 
     // ミノを下に移動する
     moveDown() {
+        // 次のミノを生成するかの判定
+        let nextMino = undefined;
         if ( this._dm.chkCanMove( this._dm.drawPosX, this._dm.drawPosY + 1, this._mino ) ) {
             // ミノの背景色を初期化する
             this._dm.clearMino( this._mino );
@@ -68,17 +70,15 @@ class MinoController {
             this._dm.addPosY();
             // ミノを描画する
             this._dm.drawMino( this._mino );
+            nextMino = false;
         } else {
             // ミノを下に移動できなかった時は、DrawManagerのStageDataを更新する。
             this._dm.updGameData( this._mino );
             this._dm.delRows( this._mino );
-
-            // テスト用コード
-            this._mino = undefined;
-            this._mino = new MinoI();
-            mc.setActiveMino( this._mino );
-            mc.setStartPos( 3, 0, this._mino );
+            nextMino = true;
         }
+
+        return nextMino;
     }
 
     spinRight() {
