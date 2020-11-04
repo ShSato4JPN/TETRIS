@@ -29,6 +29,12 @@ class MinoController {
         this._dm.drawMino( this._mino );
     }
 
+    // 一定時間毎に呼び出されるファンク所
+    intervalCalled() {
+        this._dm.addPosY();
+        this._dm.drawMino( this._mino );
+    }
+
     // ミノを右に移動する
     moveRight() {
         if ( this._dm.chkCanMove( this._dm.drawPosX + 1, this._dm.drawPosY, this._mino ) ) {

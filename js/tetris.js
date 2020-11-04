@@ -5,6 +5,14 @@ dm.setGameField( document.getElementById( "GAME_FIELD" ) );
 let mc = new MinoController();
 mc.setDrawManager( dm )
 
+// テスト用コード
+activeMino  = new MinoJ();
+mc.setActiveMino( activeMino );
+mc.setStartPos( 3, 0, activeMino );
+setInterval( function() {
+    mc.moveDown();
+}, 800 );
+
 document.onkeydown = function( e ) {
     switch ( e.keyCode ) {
         case 37:
@@ -18,13 +26,6 @@ document.onkeydown = function( e ) {
             break;
         case 40:
             mc.moveDown();
-            break;
-
-        // テスト用コード
-        case 65:
-            activeMino  = new MinoJ();
-            mc.setActiveMino( activeMino );
-            mc.setStartPos( 3, 0, activeMino );
             break;
     }
 }
