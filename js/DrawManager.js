@@ -21,6 +21,8 @@
          this._drawPosX = undefined;
          // 描画開始位置Y
          this._drawPosY = undefined;
+         // スコア表示用
+         this._SCORE = document.getElementById( "SCORE" );
      }
 
     // フィールドを設定する
@@ -106,7 +108,7 @@
      delRows( mino ) {
          // 削除フラグ
          let delFlg;
-
+         let scoreVal = parseInt( this._SCORE.innerHTML );
          for ( let y = 0; y < mino.getMinoHeight(); y++ ) {
              delFlg = true;
              for ( let x = 0; x < this._STAGE_WIDTH; x++ ) {
@@ -130,6 +132,9 @@
                  this._table.deleteRow( this._drawPosY + y );
                  // tableの先頭にレコードを追加する
                  this.insertTableRecord();
+                 // スコア更新
+                 scoreVal = scoreVal + 100;
+                 this._SCORE.innerHTML = scoreVal;
              }
          }
      }
@@ -138,7 +143,6 @@
      drawMino( mino ) {
          let minoData = mino.getMino();
          let minoColor = mino.getMinoColor();
-
          for ( let y = 0; y < mino.getMinoHeight(); y++ ) {
              for ( let x = 0; x < mino.getMinoWidth(); x++ ) {
                  if ( minoData[y][x] == 1 ){
@@ -151,7 +155,6 @@
      // 移動前のミノを削除
      clearMino( mino ) {
          let minoData = mino.getMino();
-
          for ( let y = 0; y < mino.getMinoHeight(); y++ ) {
              for ( let x = 0; x < mino.getMinoWidth(); x++ ) {
                  if ( minoData[y][x] == 1 ){
@@ -165,7 +168,6 @@
      // ミノが移動可能かチェックする
      chkCanMove( mvPosX, mvPosY, mino ) {
          let minoData = mino.getMino();
-
          for ( let y = 0; y < mino.getMinoHeight(); y++ ) {
              for ( let x = 0; x < mino.getMinoWidth(); x++ ) {
                  if ( minoData[y][x] == 1 ){
@@ -182,5 +184,4 @@
          this.clearMino( mino );
          return true;
      }
-
  }

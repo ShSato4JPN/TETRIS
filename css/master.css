@@ -8,6 +8,10 @@
     margin: 0 auto;
 }
 
+#SCORE {
+    text-align: right;
+}
+
 tr {
     width: 450px;
     height: 40px;

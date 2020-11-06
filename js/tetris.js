@@ -9,15 +9,12 @@ let mf = new MinoFactory();
 
 // 初期処理
 activeMino = mf.createMino();
-mc.setActiveMino( activeMino );
-mc.setStartPos( 3, 0 );
+mc.setStartMino( 3, 0, activeMino );
 
 // 自動移動処理を起動
 setInterval( function() {
     if ( mc.moveDown() ) {
-        activeMino = mf.createMino();
-        mc.setActiveMino( activeMino );
-        mc.setStartPos( 3, 0 );
+        judge();
     }
 }, 800 );
 
@@ -34,10 +31,17 @@ document.onkeydown = function( e ) {
             break;
         case 40:
             if ( mc.moveDown() ) {
-                activeMino = mf.createMino();
-                mc.setActiveMino( activeMino );
-                mc.setStartPos( 3, 0 );
+                judge();
             }
             break;
+    }
+}
+
+// 共通ファクション
+let judge = function() {
+    activeMino = mf.createMino();
+    // スタートミノが設定できな場合はゲームオバー
+    if ( !mc.setStartMino( 3, 0, activeMino ) ) {
+        alert("GAME OVER");
     }
 }

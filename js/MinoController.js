@@ -20,13 +20,24 @@ class MinoController {
     // 操作するミノを設定する
     setActiveMino( mino ) {
         this._mino = mino;
+        if ( this._dm.chkCanMove( this._dm.drawPosX, this._dm.drawPosY, mino ) ) {
+            return true;
+        }
+        return false;
     }
 
     // 初期位置を設定
-    setStartPos( posX, posY ) {
+    setStartMino( posX, posY, mino) {
         this._dm.drawPosX = posX;
         this._dm.drawPosY = posY;
+        this._mino = mino;
+
+        if ( !this._dm.chkCanMove( posX, posY, mino ) ) {
+            return false;
+        }
+
         this._dm.drawMino( this._mino );
+        return true;
     }
 
     // 一定時間毎に呼び出されるファンク所
