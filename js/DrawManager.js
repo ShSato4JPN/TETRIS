@@ -184,4 +184,32 @@
          this.clearMino( mino );
          return true;
      }
+
+     //  汎用処理
+     //  サブフィールドにミノを描画
+     drawSubField = function( id, mino ) {
+         let elem = document.getElementById( id );
+         let minoData = mino.getMino();
+         let minoColor = mino.getMinoColor();
+         for ( let y = 0; y < 4; y++ ) {
+             for ( let x = 0; x < 4; x++ ) {
+                 if ( minoData[y][x] == 1 ){
+                     elem.rows[ y ].cells[ x ].style.backgroundColor = minoColor;
+                 }
+             }
+         }
+     }
+
+    //  サブフィールドをクリアする
+     clearSubField() {
+         for ( let i = 0; i < 3; i++ ) {
+             let elem = document.getElementById( "SUB" + i );
+             for ( let y = 0; y < 4; y++ ) {
+                 for ( let x = 0; x < 4; x++ ) {
+                         elem.rows[ y ].cells[ x ].style.backgroundColor = this._initColor;
+                 }
+             }
+         }
+     }
+
  }

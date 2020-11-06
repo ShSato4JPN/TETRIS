@@ -4,12 +4,30 @@
 }
 
 #GAME_SPACE {
-    width: 440px;
+    width: 750px;
     margin: 0 auto;
+}
+
+#GAME_SPACE_MAIN {
+    width: 500px;
+    margin: 0 auto;
+    float: left;
+}
+
+#GAME_SPACE_SUB {
+    width: 250px;
+    margin: 0 auto;
+    float: right;
 }
 
 #SCORE {
     text-align: right;
+    width: 425px;
+    height: 25px;
+}
+
+.SUB {
+    padding-bottom: 25px;
 }
 
 tr {
