@@ -25,6 +25,7 @@ let interval = setInterval( function() {
     }
 }, 800 );
 
+// キー押下時のイベント
 document.onkeydown = function( e ) {
     switch ( e.keyCode ) {
         case 37:
